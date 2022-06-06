@@ -26,6 +26,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'profiles',
+    'lettings',
 ]
 
 MIDDLEWARE = [
@@ -43,7 +45,11 @@ ROOT_URLCONF = 'oc_lettings_site.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+            os.path.join(BASE_DIR, 'profiles', 'templates'),
+            os.path.join(BASE_DIR, 'lettings', 'templates')
+                 ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
