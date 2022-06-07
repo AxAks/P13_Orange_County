@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.urls import reverse
 from .models import Letting
 
 """
@@ -13,7 +12,7 @@ Cras eget scelerisque
 def index(request):
     lettings_list = Letting.objects.all()
     context = {'lettings_list': lettings_list}
-    return render(request, reverse('index'), context)
+    return render(request, 'lettings/index.html', context)
 
 """
 Cras ultricies dignissim purus, vitae hendrerit ex varius non.
@@ -36,4 +35,4 @@ def letting(request, letting_id):
         'title': letting.title,
         'address': letting.address,
     }
-    return render(request, reverse('letting'), context)
+    return render(request, 'lettings/letting.html', context)
