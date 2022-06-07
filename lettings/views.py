@@ -14,6 +14,7 @@ def index(request):
     context = {'lettings_list': lettings_list}
     return render(request, 'lettings/index.html', context)
 
+
 """
 Cras ultricies dignissim purus, vitae hendrerit ex varius non.
 In accumsan porta nisl id eleifend. Praesent dignissim, odio eu consequat pretium,
