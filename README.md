@@ -12,7 +12,8 @@
 - Python interpreter, version 3.9+
 - Docker and Docker Compose (https://docs.docker.com/get-docker/ or https://docs.docker.com/engine/install/)
 - (Docker Desktop - not mandatory, only for convenience)
-
+- Sentry account with access rights on the project
+(https://sentry.io/organizations/cn-films/projects/orange-county-lettings-website/?project=6543858)
 
 ### macOS / Linux
 
@@ -70,3 +71,11 @@ ___The following indications assume that you are in the docker container in a ba
 - Visit `http://localhost:8000/admin`
 - login with user `admin`, and password `Abc1234!`
 
+#### Errors monitoring
+
+1. the monitoring is reachable at:
+
+- https://sentry.io/organizations/cn-films/projects/orange-county-lettings-website/?project=6543858
+  -> you will need to create an account and request access
+
+- The Issues tab lists all captured issues

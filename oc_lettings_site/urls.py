@@ -9,7 +9,8 @@ def trigger_error(request):
     """
     try:
         division_by_zero = 1 / 0
-    except ZeroDivisionError as e:
+        return division_by_zero
+    except ZeroDivisionError:
         return redirect('home:index')
 
 
