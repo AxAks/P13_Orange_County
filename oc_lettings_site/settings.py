@@ -6,7 +6,7 @@ from sentry_sdk.integrations.django import DjangoIntegration
 load_dotenv()
 
 sentry_sdk.init(
-    dsn="https://862a82ab58464080a41e1107ace4504c@o1289316.ingest.sentry.io/6507673",
+    dsn=os.getenv('SENTRY_DSN'),
     integrations=[
         DjangoIntegration(),
     ],
