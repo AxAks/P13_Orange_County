@@ -1,61 +1,64 @@
-## Résumé
+## Project
 
-Site web d'Orange County Lettings
+ Orange County Lettings Website
 
-## Développement local
+## Local Development
 
-### Prérequis
+### Prerequisites
 
-- Compte GitHub avec accès en lecture à ce repository
+- GitHub account with read access to this repository
 - Git CLI
 - SQLite3 CLI
-- Interpréteur Python, version 3.6 ou supérieure
+- Python interpreter, version 3.9+
+- Docker and Docker Compose (https://docs.docker.com/get-docker/ or https://docs.docker.com/engine/install/)
+- (Docker Desktop - not mandatory, only for convenience)
 
-Dans le reste de la documentation sur le développement local, il est supposé que la commande `python` de votre OS shell exécute l'interpréteur Python ci-dessus (à moins qu'un environnement virtuel ne soit activé).
+
+The documentation for local development will assume that the `python` command refers to the interpreter mentioned above (unless a virtualenv is set).
 
 ### macOS / Linux
 
-#### Cloner le repository
+#### Clone the repository
 
 - `cd /path/to/put/project/in`
-- `git clone https://github.com/OpenClassrooms-Student-Center/Python-OC-Lettings-FR.git`
+- `git clone https://github.com/AxAks/P13_Orange_County.git`
 
-#### Créer l'environnement virtuel
+#### Add the required environment variables
+1. Create a .env file at the project root:
 
-- `cd /path/to/Python-OC-Lettings-FR`
-- `python -m venv venv`
-- `apt-get install python3-venv` (Si l'étape précédente comporte des erreurs avec un paquet non trouvé sur Ubuntu)
-- Activer l'environnement `source venv/bin/activate`
-- Confirmer que la commande `python` exécute l'interpréteur Python dans l'environnement virtuel
-`which python`
-- Confirmer que la version de l'interpréteur Python est la version 3.6 ou supérieure `python --version`
-- Confirmer que la commande `pip` exécute l'exécutable pip dans l'environnement virtuel, `which pip`
-- Pour désactiver l'environnement, `deactivate`
+$ `cd P13_Orange_County`
+$ `touch .env`
+$ `echo SECRET_KEY='[YourSecretKey]' > .env`
+$ `echo DB_NAME='oc-lettings-site.sqlite3' >> .env`
 
-#### Exécuter le site
+#### Launch the project in a docker container
+1. On first launch (the image first needs to be built):      
+$ docker-compose up --build
 
-- `cd /path/to/Python-OC-Lettings-FR`
-- `source venv/bin/activate`
-- `pip install --requirement requirements.txt`
-- `python manage.py runserver`
-- Aller sur `http://localhost:8000` dans un navigateur.
-- Confirmer que le site fonctionne et qu'il est possible de naviguer (vous devriez voir plusieurs profils et locations).
+2. 1bis. if the image has already been build and you want to run this same image (no re-build):      
+$ docker-compose up 
 
-#### Linting
+3. Visit `http://localhost:8000` in a web browser:                
+-> the website should be displayed, and you should be able to see some profiles and locations
 
-- `cd /path/to/Python-OC-Lettings-FR`
-- `source venv/bin/activate`
-- `flake8`
+#### Interact with the docker container 
+1. List all containers:     
+$ docker ps -a
 
-#### Tests unitaires
+2. Enter the docker Orange County container (via a bash terminal):     
+$ docker exec -ti p13_orange_county_web_1 /bin/bash  (the container must be running)
 
-- `cd /path/to/Python-OC-Lettings-FR`
-- `source venv/bin/activate`
-- `pytest`
 
-#### Base de données
+##### Checks
+The following indications assume that you are in the docker container in a bash shell
 
-- `cd /path/to/Python-OC-Lettings-FR`
+#### Linting 
+$ flake8     
+
+#### Unitests
+$ pytest      
+
+#### Interact with the Database
 - Ouvrir une session shell `sqlite3`
 - Se connecter à la base de données `.open oc-lettings-site.sqlite3`
 - Afficher les tables dans la base de données `.tables`
