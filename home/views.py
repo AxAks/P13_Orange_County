@@ -13,3 +13,11 @@ Praesent volutpat porttitor magna, non finibus neque cursus id.
 
 def index(request):
     return render(request, 'index.html')
+
+
+def trigger_error(request):
+    """
+    just for tests and demo
+    """
+    division_by_zero = 1 / 0
+    return division_by_zero
