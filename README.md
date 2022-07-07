@@ -75,7 +75,7 @@ ___The following indications assume that you are in the docker container in a ba
 
 1. the monitoring is reachable at:
 
-- https://sentry.io/organizations/cn-films/projects/orange-county-lettings-website/?project=6543858
+- https://sentry.io/organizations/cn-films/projects/orange-county-lettings-website/?project=6543858    
   -> you will need to create an account and request access
 
-- The Issues tab lists all captured issues
+  -> The Issues tab lists all captured issues
