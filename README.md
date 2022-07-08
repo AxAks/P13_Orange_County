@@ -10,7 +10,7 @@
 - Git CLI
 - SQLite3 CLI
 - Python interpreter, version 3.9+
-- Docker and Docker Compose (https://docs.docker.com/get-docker/ or https://docs.docker.com/engine/install/)
+- Docker (v20.10+) and Docker Compose (https://docs.docker.com/get-docker/ or https://docs.docker.com/engine/install/)
 - (Docker Desktop - not mandatory, only for convenience)
 - Sentry account with access rights on the project
 (https://sentry.io/organizations/cn-films/projects/orange-county-lettings-website/?project=6543858)
@@ -32,17 +32,24 @@ ___the `python` command refers to the interpreter mentioned above (unless a virt
    $ `touch .env`
    $ `echo SECRET_KEY='[YourSecretKey]' > .env`
    $ `echo DB_NAME='oc-lettings-site.sqlite3' >> .env`
-
+   $ `echo SENTRY_DSN='https://74f290ff50b1436daf464e567f3de6cb@o1289316.ingest.sentry.io/6543858' >> .env`
 #### Launch the project in a docker container
 
-1. On first launch (the image first needs to be built):      
+1. Make sure the docker daemon is up
+   $ `sudo systemctl status docker.service`
+   -> to stop daemon: $ `sudo systemctl stop docker.service`
+   -> to start daemon: $ `sudo systemctl start docker.service`
+   or Launch Docker Desktop
+2. 
+
+3. On first launch (the image first needs to be built):      
    $ `docker-compose up --build`
 
-2. (1.bis) if the image has already been build, and you want to run this same image (no re-build):      
+4. (3.bis) if the image has already been build, and you want to run this same image (no re-build):      
    $ `docker-compose up`
 
-3. Visit `http://localhost:8000` in a web browser:                
-   -> the website should be displayed, and you should be able to see some profiles and locations
+   1. Visit `http://localhost:8000` in a web browser:                
+      -> the website should be displayed, and you should be able to see some profiles and locations
 
 #### Interact with the docker container
 
