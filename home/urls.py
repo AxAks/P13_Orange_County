@@ -6,5 +6,5 @@ app_name = "home"
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('sentry-debug/', trigger_error)  # just for tests
+    path('sentry-debug/', trigger_error, name='sentry-error')  # just for tests
     ]
