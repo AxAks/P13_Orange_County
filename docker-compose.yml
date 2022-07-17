@@ -1,6 +1,17 @@
+<<<<<<< Updated upstream
 web:
   build: .
   volumes:
     - .:/app
   ports:
     - "8000:8000"
+=======
+version: "2.6.1"
+services:
+  web:
+    build: .
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+>>>>>>> Stashed changes

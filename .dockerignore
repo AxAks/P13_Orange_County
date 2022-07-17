@@ -1,7 +1,14 @@
-.pytest_cache
-__pycache__
 
-.idea/
+
+.git
+.gitignore
+venv/
+
+.idea
+
+.pytest_cache
+__pycache__/
+
+Docker/
 
 .env
-venv/
