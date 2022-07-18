@@ -4,11 +4,9 @@
 .gitignore
 venv/
 
-.idea
+.idea/
 
-.pytest_cache
+.pytest_cache/
 __pycache__/
-
-Docker/
 
 .env
