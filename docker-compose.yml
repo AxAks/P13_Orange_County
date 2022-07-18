@@ -1,6 +1,6 @@
 version: "2.6.1"
 services:
-  web:
+  app:
     build: .
     volumes:
       - .:/app
