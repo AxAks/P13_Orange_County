@@ -86,3 +86,11 @@ ___The following indications assume that you are in the docker container in a ba
   -> you will need to create an account and request access
 
   -> The Issues tab lists all captured issues
+
+
+
+
+
+
+------
+## sudo docker run --env-file ./.env  d6d16bce6f4f ##
