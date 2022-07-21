@@ -16,9 +16,7 @@ jobs:
           command: flake8
       - run:
           name: Run tests
-          command: |
-          echo $BASH_ENV
-          pytest
+          command: pytest
 
   create-docker-image-and-push-to-hub:
     docker:
