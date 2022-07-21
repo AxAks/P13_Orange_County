@@ -28,10 +28,10 @@ jobs:
 
       - run:
           name: Create docker image
-          command: docker build . -t oclettings/p13_orange_county_app:$CIRCLE_SHA1
+          command: sudo docker build . -t oclettings/p13_orange_county_app:$CIRCLE_SHA1
       - run:
           name: Push image to Docker Hub
-          command: docker push oclettings/p13_orange_county_app:$CIRCLE_SHA1
+          command: sudo docker push oclettings/p13_orange_county_app:$CIRCLE_SHA1
 
 workflows:
   deploy-if-tests-passed:
