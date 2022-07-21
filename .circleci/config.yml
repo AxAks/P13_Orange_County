@@ -45,3 +45,7 @@ workflows:
       - create-docker-image-and-push-to-hub:
           requires:
             - linting-and-test
+          filters:
+            branches:
+              only:
+                - master
