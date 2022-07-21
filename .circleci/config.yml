@@ -12,13 +12,14 @@ jobs:
       - python/install-packages:
           pkg-manager: pip
       - run:
+          name: Install Required packages
+          command: pip install -r requirements.txt
+      - run:
           name: Run linting
           command: flake8
       - run:
           name: Run tests
-          command: |
-          pip install -r requirements.txt
-          pytest
+          command: pytest
 
   create-docker-image-and-push-to-hub:
     docker:
