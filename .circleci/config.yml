@@ -12,6 +12,8 @@ jobs:
       - python/install-packages:
           pkg-manager: pip
       - run:
+          command: pip install -r requirements.txt
+      - run:
           name: Run linting
           command: flake8
       - run:
@@ -25,14 +27,13 @@ jobs:
       - checkout
       - python/install-packages:
             pkg-manager: pip
+
       - run:
           name: Create docker image
-          command:
-            docker build . -t oclettings/p13_orange_county_app:$CIRCLE_SHA1
+          command: docker build . -t oclettings/p13_orange_county_app:$CIRCLE_SHA1
       - run:
           name: Push image to Docker Hub
-          command:
-            docker push oclettings/p13_orange_county_app:$CIRCLE_SHA1
+          command: docker push oclettings/p13_orange_county_app:$CIRCLE_SHA1
 
 workflows:
   deploy-if-tests-passed:
