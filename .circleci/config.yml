@@ -12,14 +12,15 @@ jobs:
       - python/install-packages:
           pkg-manager: pip
       - run:
-          name: Install Required packages
-          command: pip install -r requirements.txt
-      - run:
           name: Run linting
           command: flake8
       - run:
           name: Run tests
-          command: pytest
+          command: |
+          echo 'export SECRET_KEY=fp$9^593hsriajg$_%=5trot9g!1qa@ew(o-1#@=&4%=hp46(s' >> $BASH_ENV
+          echo 'export DB_NAME=oc-lettings-site.sqlite3' >> $BASH_ENV
+          echo 'export SENTRY_DSN=https://74f290ff50b1436daf464e567f3de6cb@o1289316.ingest.sentry.io/6543858' >> $BASH_ENV
+          pytest
 
   create-docker-image-and-push-to-hub:
     docker:
