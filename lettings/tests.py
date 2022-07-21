@@ -6,7 +6,7 @@ from django.urls import reverse
 
 
 @pytest.mark.django_db
-def test_lettings_index(client, test_lettings_list): #                                                      ,n,ln,ln,n,ll,nldsf,sn
+def test_lettings_index(client, test_lettings_list):
     """
     Checks that the lettings index page is well displayed
     """
