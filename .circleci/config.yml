@@ -16,7 +16,10 @@ jobs:
           command: flake8
       - run:
           name: Run tests
-          command: pytest
+          command: |
+            set -e
+            TEST_FILES=$(circleci tests glob "*/test.py")
+            pytest
 
   create-docker-image-and-push-to-hub:
     docker:
