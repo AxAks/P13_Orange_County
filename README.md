@@ -42,11 +42,14 @@ ___the `python` command refers to the interpreter mentioned above (unless a virt
    or Launch Docker Desktop
 2. 
 
-3. On first launch (the image first needs to be built):      
-   $ `docker-compose up --build`
+3. Build the Docker Image:      
+   $ `sudo docker build . -t [image_tagname]`
 
-4. (3.bis) if the image has already been build, and you want to run this same image (no re-build):      
-   $ `docker-compose up`
+4. On first launch (the image first needs to be built)
+   $ `sudo docker run --env-file ./.env  [image_name]`
+5. Stop/Start Docker container:
+   $ `sudo docker stop [container_name/ID]`
+   $ `sudo docker start [container_name/ID]`
 
    1. Visit `http://localhost:8000` in a web browser:                
       -> the website should be displayed, and you should be able to see some profiles and locations
@@ -57,7 +60,7 @@ ___the `python` command refers to the interpreter mentioned above (unless a virt
    $ `docker ps -a`
 
 2. Enter the docker Orange County container (via a bash terminal):     
-   $ `docker exec -ti p13_orange_county_web_1 /bin/bash`  (the container must be running)
+   $ `docker exec -ti [container_name] /bin/bash`  (the container must be running)
 
 ##### Checks
 
@@ -93,4 +96,3 @@ ___The following indications assume that you are in the docker container in a ba
 
 
 ------
-## sudo docker run --env-file ./.env  d6d16bce6f4f ##
