@@ -1,77 +1,98 @@
-## Résumé
+## Project
 
-Site web d'Orange County Lettings
+ Orange County Lettings Website
 
-## Développement local
+## Local Development
 
-### Prérequis
+### Prerequisites
 
-- Compte GitHub avec accès en lecture à ce repository
+- GitHub account with read access to this repository
 - Git CLI
 - SQLite3 CLI
-- Interpréteur Python, version 3.6 ou supérieure
-
-Dans le reste de la documentation sur le développement local, il est supposé que la commande `python` de votre OS shell exécute l'interpréteur Python ci-dessus (à moins qu'un environnement virtuel ne soit activé).
+- Python interpreter, version 3.9+
+- Docker (v20.10+) and Docker Compose (https://docs.docker.com/get-docker/ or https://docs.docker.com/engine/install/)
+- (Docker Desktop - not mandatory, only for convenience)
+- Sentry account with access rights on the project
+(https://sentry.io/organizations/cn-films/projects/orange-county-lettings-website/?project=6543858)
 
 ### macOS / Linux
 
-#### Cloner le repository
+___The documentation for local development will assume that___
+___the `python` command refers to the interpreter mentioned above (unless a virtualenv is set).___
+
+#### Clone the repository
 
 - `cd /path/to/put/project/in`
-- `git clone https://github.com/OpenClassrooms-Student-Center/Python-OC-Lettings-FR.git`
+- `git clone https://github.com/AxAks/P13_Orange_County.git`
 
-#### Créer l'environnement virtuel
+#### Add the required environment variables
 
-- `cd /path/to/Python-OC-Lettings-FR`
-- `python -m venv venv`
-- `apt-get install python3-venv` (Si l'étape précédente comporte des erreurs avec un paquet non trouvé sur Ubuntu)
-- Activer l'environnement `source venv/bin/activate`
-- Confirmer que la commande `python` exécute l'interpréteur Python dans l'environnement virtuel
-`which python`
-- Confirmer que la version de l'interpréteur Python est la version 3.6 ou supérieure `python --version`
-- Confirmer que la commande `pip` exécute l'exécutable pip dans l'environnement virtuel, `which pip`
-- Pour désactiver l'environnement, `deactivate`
+1. Create a .env file at the project root:
+   $ `cd P13_Orange_County`
+   $ `touch .env`
+   $ `echo SECRET_KEY='[YourSecretKey]' > .env`
+   $ `echo DB_NAME='oc-lettings-site.sqlite3' >> .env`
+   $ `echo SENTRY_DSN='https://74f290ff50b1436daf464e567f3de6cb@o1289316.ingest.sentry.io/6543858' >> .env`
+#### Launch the project in a docker container
 
-#### Exécuter le site
+1. Make sure the docker daemon is up
+   $ `sudo systemctl status docker.service`
+   -> to stop daemon: $ `sudo systemctl stop docker.service`
+   -> to start daemon: $ `sudo systemctl start docker.service`
+   or Launch Docker Desktop
+2. 
 
-- `cd /path/to/Python-OC-Lettings-FR`
-- `source venv/bin/activate`
-- `pip install --requirement requirements.txt`
-- `python manage.py runserver`
-- Aller sur `http://localhost:8000` dans un navigateur.
-- Confirmer que le site fonctionne et qu'il est possible de naviguer (vous devriez voir plusieurs profils et locations).
+3. Build the Docker Image:      
+   $ `sudo docker build . -t [image_tagname]`
+
+4. On first launch (the image first needs to be built)
+   $ `sudo docker run --env-file ./.env  [image_name]`
+5. Stop/Start Docker container:
+   $ `sudo docker stop [container_name/ID]`
+   $ `sudo docker start [container_name/ID]`
+
+   1. Visit `http://localhost:8000` in a web browser:                
+      -> the website should be displayed, and you should be able to see some profiles and locations
+
+#### Interact with the docker container
+
+1. List all containers:     
+   $ `docker ps -a`
+
+2. Enter the docker Orange County container (via a bash terminal):     
+   $ `docker exec -ti [container_name] /bin/bash`  (the container must be running)
+
+##### Checks
+
+___The following indications assume that you are in the docker container in a bash shell___
 
 #### Linting
 
-- `cd /path/to/Python-OC-Lettings-FR`
-- `source venv/bin/activate`
-- `flake8`
+    $ `flake8`     
 
-#### Tests unitaires
+#### Unittests
 
-- `cd /path/to/Python-OC-Lettings-FR`
-- `source venv/bin/activate`
-- `pytest`
+    $ `pytest`
 
-#### Base de données
+#### Administration interface
 
-- `cd /path/to/Python-OC-Lettings-FR`
-- Ouvrir une session shell `sqlite3`
-- Se connecter à la base de données `.open oc-lettings-site.sqlite3`
-- Afficher les tables dans la base de données `.tables`
-- Afficher les colonnes dans le tableau des profils, `pragma table_info(Python-OC-Lettings-FR_profile);`
-- Lancer une requête sur la table des profils, `select user_id, favorite_city from
-  Python-OC-Lettings-FR_profile where favorite_city like 'B%';`
-- `.quit` pour quitter
+1. With the Docker container launched
 
-#### Panel d'administration
+- Visit `http://localhost:8000/admin`
+- login with user `admin`, and password `Abc1234!`
 
-- Aller sur `http://localhost:8000/admin`
-- Connectez-vous avec l'utilisateur `admin`, mot de passe `Abc1234!`
+#### Errors monitoring
 
-### Windows
+1. the monitoring is reachable at:
 
-Utilisation de PowerShell, comme ci-dessus sauf :
+- https://sentry.io/organizations/cn-films/projects/orange-county-lettings-website/?project=6543858    
+  -> you will need to create an account and request access
 
-- Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1` 
-- Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
+  -> The Issues tab lists all captured issues
+
+
+
+
+
+
+------
