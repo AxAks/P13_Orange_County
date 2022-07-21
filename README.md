@@ -46,7 +46,7 @@ ___the `python` command refers to the interpreter mentioned above (unless a virt
    $ `sudo docker build . -t [image_tagname]`
 
 4. On first launch (the image first needs to be built)
-   $ `sudo docker run --env-file ./.env  [image_name]`
+   $ `sudo docker run -p 8000:8000 --env-file ./.env  [image_name/ID]`
 5. Stop/Start Docker container:
    $ `sudo docker stop [container_name/ID]`
    $ `sudo docker start [container_name/ID]`
