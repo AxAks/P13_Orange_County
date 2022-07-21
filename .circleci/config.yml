@@ -27,9 +27,10 @@ jobs:
             pkg-manager: pip
       - run:
           name: Create docker image
+          environment:
+            ENV_FILE: ./.env
           command:
             docker build . -t oclettings/p13_orange_county_app:$CIRCLE_SHA1
-             docker run --env-file ./.env oclettings/p13_orange_county_app
       - run:
           name: Push image to Docker Hub
           command:
