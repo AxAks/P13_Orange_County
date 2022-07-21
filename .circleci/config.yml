@@ -32,8 +32,8 @@ jobs:
           command: docker build . -t oclettings/p13_orange_county_app:$CIRCLE_SHA1
       - run:
           name: Push image to Docker Hub
-          command:
-          docker login
+          command: |
+          docker login -u $DOCKER_USERNAME -p $DOCKER_TOKEN
           docker push oclettings/p13_orange_county_app:$CIRCLE_SHA1
 
 workflows:
