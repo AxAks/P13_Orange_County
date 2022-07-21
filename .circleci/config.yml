@@ -25,13 +25,14 @@ jobs:
       - checkout
       - python/install-packages:
             pkg-manager: pip
-
+      - setup_remote_docker:
+          version: 20.10.11
       - run:
           name: Create docker image
-          command: sudo docker build . -t oclettings/p13_orange_county_app:$CIRCLE_SHA1
+          command: docker build . -t oclettings/p13_orange_county_app:$CIRCLE_SHA1
       - run:
           name: Push image to Docker Hub
-          command: sudo docker push oclettings/p13_orange_county_app:$CIRCLE_SHA1
+          command: docker push oclettings/p13_orange_county_app:$CIRCLE_SHA1
 
 workflows:
   deploy-if-tests-passed:
