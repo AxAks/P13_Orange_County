@@ -15,13 +15,15 @@ jobs:
           name: Run linting
           command: flake8
       - run:
-          name: Run tests
+          name: Set environnement variables
           command: |
           touch .env
-          echo 'export SECRET_KEY=fp$9^593hsriajg$_%=5trot9g!1qa@ew(o-1#@=&4%=hp46(s' >> .env
-          echo 'export DB_NAME=oc-lettings-site.sqlite3' >> .env
-          echo 'export SENTRY_DSN=https://74f290ff50b1436daf464e567f3de6cb@o1289316.ingest.sentry.io/6543858' >> .env
-          pytest
+          echo 'SECRET_KEY=fp$9^593hsriajg$_%=5trot9g!1qa@ew(o-1#@=&4%=hp46(s' >> .env
+          echo 'DB_NAME=oc-lettings-site.sqlite3' >> .env
+          echo 'SENTRY_DSN=https://74f290ff50b1436daf464e567f3de6cb@o1289316.ingest.sentry.io/6543858' >> .env
+      - run:
+          name: Run tests
+          command: pytest
 
   create-docker-image-and-push-to-hub:
     docker:
