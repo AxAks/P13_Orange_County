@@ -16,7 +16,7 @@ jobs:
           command: flake8
       - run:
           name: Run tests
-          command:
+          command: |
           echo $BASH_ENV
           pytest
 
