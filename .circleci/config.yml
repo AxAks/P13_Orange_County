@@ -40,5 +40,5 @@ workflows:
     jobs:
       - linting-and-test
       - create-docker-image-and-push-to-hub
-        requires:
-          - linting-and-test
+        #requires:
+        #- linting-and-test
