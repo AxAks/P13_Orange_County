@@ -7,6 +7,7 @@ WORKDIR /app
 COPY . /app/
 RUN pip3 install --upgrade pip
 RUN pip3 install -r requirements.txt
+RUN chown -R app:app /app/
 
 USER app
 EXPOSE 8000
