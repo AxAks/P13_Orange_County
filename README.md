@@ -30,10 +30,11 @@ ___the `python` command refers to the interpreter mentioned above (unless a virt
 1. Create a .env file at the project root:
    $ `cd P13_Orange_County`
    $ `touch .env`
-   $ `echo SECRET_KEY='[YourSecretKey]' > .env`
-   $ `echo DB_NAME='oc-lettings-site.sqlite3' >> .env`
-   $ `echo DEBUG='[True/False]' >> .env`
-   $ `echo SENTRY_DSN='https://74f290ff50b1436daf464e567f3de6cb@o1289316.ingest.sentry.io/6543858' >> .env`
+   $ `echo SECRET_KEY=[YourSecretKey] > .env`
+   $ `echo ALLOWED_HOSTS=['localhost', '0.0.0.0', 'p13-oc-lettings.herokuapp.com'] >> .env`
+   $ `echo DB_NAME=oc-lettings-site.sqlite3 >> .env`
+   $ `echo DEBUG=[True or False] >> .env`
+   $ `echo SENTRY_DSN=https://74f290ff50b1436daf464e567f3de6cb@o1289316.ingest.sentry.io/6543858 >> .env`
 #### Launch the project in a docker container
 
 1. Make sure the docker daemon is up
