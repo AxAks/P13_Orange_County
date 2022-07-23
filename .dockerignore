@@ -2,6 +2,10 @@
 
 .git
 .gitignore
+
+.circleci
+.dockerignore
+
 venv/
 
 .idea/
