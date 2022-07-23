@@ -28,12 +28,21 @@ ___the `python` command refers to the interpreter mentioned above (unless a virt
 #### Add the required environment variables
 
 1. Create a .env file at the project root:
+2. Example of .env file:
+   `
+   SECRET_KEY=MySecretKey
+   DEBUG=True
+   ALLOWED_HOSTS='*'
+   DB_NAME=oc-lettings-site.sqlite3
+   SENTRY_DSN=https://74f290ff50b1436daf464e567f3de6cb@o1289316.ingest.sentry.io/6543858
+   ` 
+
    $ `cd P13_Orange_County`
    $ `touch .env`
-   $ `echo SECRET_KEY=[YourSecretKey] > .env`
-   $ `echo ALLOWED_HOSTS=['localhost', '0.0.0.0', 'p13-oc-lettings.herokuapp.com'] >> .env`
+   $ `echo SECRET_KEY=YourSecretKey > .env`
+   $ `echo ALLOWED_HOSTS='*' >> .env`
    $ `echo DB_NAME=oc-lettings-site.sqlite3 >> .env`
-   $ `echo DEBUG=[True or False] >> .env`
+   $ `echo DEBUG=True >> .env`
    $ `echo SENTRY_DSN=https://74f290ff50b1436daf464e567f3de6cb@o1289316.ingest.sentry.io/6543858 >> .env`
 #### Launch the project in a docker container
 
@@ -45,13 +54,16 @@ ___the `python` command refers to the interpreter mentioned above (unless a virt
 2. 
 
 3. Build the Docker Image:      
-   $ `sudo docker build . -t [image_tagname]`
-
-4. On first launch (the image first needs to be built)
-   $ `sudo docker run -p 8000:8000 --env-file ./.env  -d --name p13_orange_county_app [image_name/ID]`
-5. Stop/Start Docker container:
-   $ `sudo docker stop [container_name/ID]`
-   $ `sudo docker start [container_name/ID]`
+   $ `docker build . -t [image_tagname]`
+4. Download a Docker Image:
+   $ `docker pull oclettings/p13_orange_county_app:[branch]-[circleci-commit]`
+5. List Docker Images 
+   $ `docker image ls`
+6. On first launch (the image first needs to be built)
+   $ `docker run -p 8000:8000 --env-file path/to/.env  -d --name p13_orange_county_app [image_name/ID]`
+7. Stop/Start Docker container:
+   $ `docker stop [container_name/ID]`
+   $ `docker start [container_name/ID]`
 
    1. Visit `http://localhost:8000` in a web browser:                
       -> the website should be displayed, and you should be able to see some profiles and locations
@@ -60,9 +72,8 @@ ___the `python` command refers to the interpreter mentioned above (unless a virt
 
 1. List all containers:     
    $ `docker ps -a`
-
-2. Enter the docker Orange County container (via a bash terminal):     
-   $ `docker exec -ti [container_name] /bin/bash`  (the container must be running)
+3. Enter the docker Orange County container (via a bash terminal):     
+   $ `docker exec -ti [container_name/ID] /bin/bash`  (the container must be running)
 
 ##### Checks
 
@@ -98,3 +109,4 @@ ___The following indications assume that you are in the docker container in a ba
 
 
 ------
+to be continued !!! 
