@@ -62,7 +62,7 @@ jobs:
 
 workflows:
 
-  create-and-store-image-if-tests-pass:
+  deployment_process:
     jobs:
       - linting-and-test
       - create-docker-image-and-push-to-hub:
@@ -72,9 +72,6 @@ workflows:
             branches:
               only:
                 - dev #changer pour master !!
-
-  deployment_on_heroku:
-    jobs:
       - deploy-on-heroku:
           requires:
             - create-docker-image-and-push-to-hub
