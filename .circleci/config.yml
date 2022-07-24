@@ -45,14 +45,12 @@ jobs:
       - setup_remote_docker:
             version: 20.10.11
             docker_layer_caching: true
+      - python/install-packages:
+          pkg-manager: pip
       - heroku/install
       - run:
           name: Login to Heroku repository
           command: HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
-      - run:
-          name: Scale Heroku web process to 1
-          command: HEROKU_API_KEY=${HEROKU_API_KEY} heroku ps:scale web=1
-
       - run:
           name: Build and push docker image to Heroku repository
           command: HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a $HEROKU_APP_NAME web
