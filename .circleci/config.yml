@@ -57,7 +57,7 @@ jobs:
           command: HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a $HEROKU_APP_NAME web:$CIRCLE_BRANCH-$CIRCLE_SHA1
       - run:
           name: Release new version of the app on Heroku
-          command: HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a $HEROKU_APP_NAME web:$CIRCLE_BRANCH-$CIRCLE_SHA1
+          command: HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a $HEROKU_APP_NAME web
 
       # - heroku/deploy-via-git
 
