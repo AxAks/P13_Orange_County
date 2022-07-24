@@ -45,8 +45,7 @@ jobs:
       - setup_remote_docker:
             version: 20.10.11
       - heroku/install
-      - heroku/push-docker-image
-      - heroku/release-docker-image
+      - heroku/deploy-via-git
 
 
 workflows:
