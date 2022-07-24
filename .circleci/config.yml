@@ -19,7 +19,7 @@ jobs:
           name: Run tests
           command: pytest
 
-  create-docker-image-and-push-to-hub:
+  save_docker-image-to-docker-hub:
     docker:
       - image: cimg/python:3.9
     steps:
@@ -44,10 +44,14 @@ jobs:
       - checkout
       - setup_remote_docker:
             version: 20.10.11
+            docker_layer_caching: true
       - heroku/install
       - run:
           name: Login to Heroku repository
           command: HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
+      - run:
+          name: Set Web concurrency to 3
+          command: HEROKU_API_KEY=${HEROKU_API_KEY} heroku config:set WEB_CONCURRENCY=3
       - run:
           name: Build and push docker image to Heroku repository
           command: HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a $HEROKU_APP_NAME web
@@ -61,7 +65,7 @@ workflows:
   deployment_process:
     jobs:
       - linting-and-test
-      - create-docker-image-and-push-to-hub:
+      - save_docker-image-to-docker-hub:
           requires:
             - linting-and-test
           filters:
@@ -70,7 +74,7 @@ workflows:
                 - dev #changer pour master !!
       - deploy-on-heroku:
           requires:
-            - create-docker-image-and-push-to-hub
+            - save_docker-image-to-docker-hub
           filters:
             branches:
               only:
