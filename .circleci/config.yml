@@ -45,7 +45,15 @@ jobs:
       - setup_remote_docker:
             version: 20.10.11
       - heroku/install
-      - heroku/deploy-via-git
+      - run:
+          name: Login to Heroku repository
+          command: HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
+      - run:
+          name: Build and push docker image to Heroku repository
+          command: HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a $HEROKU_APP_NAME web
+      - run:
+          name: Release new version of the app on Heroku
+          command: HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a $HEROKU_APP_NAME web
 
 
 workflows:
