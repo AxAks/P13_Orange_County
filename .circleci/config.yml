@@ -2,9 +2,9 @@ version: 2.1
 
 orbs:
   python: circleci/python@1.5.0
+  heroku: circleci/heroku@1.2.6
 
 jobs:
-
   linting-and-test:
     docker:
       - image: cimg/python:3.9
@@ -38,6 +38,28 @@ jobs:
           name: Push image to Docker Hub
           command: docker push oclettings/p13_orange_county_app:$CIRCLE_BRANCH-$CIRCLE_SHA1
 
+  deploy-on-heroku:
+    executor: heroku/default
+    steps:
+      - checkout
+      - heroku/install
+
+      - run:
+          name: Install Heroku CLI on the build server
+          command: sudo curl https://cli-assets.heroku.com/install.sh | sh
+      - run:
+          name: Login to Heroku repository
+          command: HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
+      - run:
+          name: Build and push docker image to Heroku repository
+          command: HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a $HEROKU_APP_NAME web
+      - run:
+          name: Release new version of the app on Heroku
+          command: HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a $HEROKU_APP_NAME web
+
+      - heroku/deploy-via-git
+
+
 workflows:
 
   create-and-store-image-if-tests-pass:
@@ -46,6 +68,16 @@ workflows:
       - create-docker-image-and-push-to-hub:
           requires:
             - linting-and-test
+          filters:
+            branches:
+              only:
+                - dev #changer pour master !!
+
+  deployment_on_heroku:
+    jobs:
+      - deploy-on-heroku:
+          requires:
+            - create-docker-image-and-push-to-hub
           filters:
             branches:
               only:
