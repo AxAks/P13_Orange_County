@@ -68,11 +68,11 @@ workflows:
           filters:
             branches:
               only:
-                - dev #changer pour master !!
+                - master #changer pour master !!
       - deploy-on-heroku:
           requires:
             - save_docker-image-to-docker-hub
           filters:
             branches:
               only:
-                - dev #changer pour master !!
+                - master #changer pour master !!
