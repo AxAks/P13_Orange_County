@@ -45,11 +45,11 @@ jobs:
       - heroku/install
       - setup_remote_docker:
             version: 20.10.11
-            docker_layer_caching: true
       - run:
           name: Deploy to Heroku
           command: |
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku config:set WEB_CONCURRENCY=3
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a $HEROKU_APP_NAME web
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a $HEROKU_APP_NAME web
 
