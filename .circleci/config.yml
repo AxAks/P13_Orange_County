@@ -39,7 +39,7 @@ jobs:
           command: docker push oclettings/p13_orange_county_app:$CIRCLE_BRANCH-$CIRCLE_SHA1
 
   deploy-on-heroku:
-    executor: heroku/default
+    executor: heroku/22
     steps:
       - checkout
       - heroku/install
