@@ -43,6 +43,8 @@ jobs:
     steps:
       - checkout
       - heroku/install
+      - python/install-packages:
+          pkg-manager: pip
       - setup_remote_docker:
             version: 20.10.11
       - run:
