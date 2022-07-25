@@ -43,17 +43,18 @@ jobs:
     steps:
       - checkout
       - heroku/install
-      - python/install-packages:
-          pkg-manager: pip
       - setup_remote_docker:
             version: 20.10.11
+            docker_layer_caching: true
       - run:
-          name: Deploy to Heroku
-          command: |
-            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
-            HEROKU_API_KEY=${HEROKU_API_KEY} heroku config:set -a $HEROKU_APP_NAME WEB_CONCURRENCY=3
-            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a $HEROKU_APP_NAME web
-            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a $HEROKU_APP_NAME web
+          name: Login to Heroku repository
+          command: HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
+      - run:
+          name: Build and push docker image to Heroku repository
+          command: HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a $HEROKU_APP_NAME web
+      - run:
+          name: Release new version of the app on Heroku
+          command: HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a $HEROKU_APP_NAME web
 
 
 workflows:
