@@ -39,8 +39,7 @@ jobs:
       - run:
           name: Push image to Docker Hub
           command: |
-            docker tag oclettings/p13_orange_county_app:$TAG 
-            docker tag oclettings/p13_orange_county_app:latest
+            docker tag oclettings/p13_orange_county_app:$TAG oclettings/p13_orange_county_app:latest
             docker push oclettings/p13_orange_county_app:$TAG
             docker push oclettings/p13_orange_county_app:latest
 
