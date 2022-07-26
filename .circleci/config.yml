@@ -30,13 +30,19 @@ jobs:
           version: 20.10.11
       - run:
           name: Create docker image
-          command: docker build . -t oclettings/p13_orange_county_app:$CIRCLE_BRANCH-$CIRCLE_SHA1
+          command: |
+            TAG=$CIRCLE_BRANCH-$CIRCLE_SHA1
+            docker build . -t oclettings/p13_orange_county_app:$TAG
       - run:
           name: Log into Docker Hub
           command: docker login -u $DOCKER_USERNAME -p $DOCKER_TOKEN
       - run:
           name: Push image to Docker Hub
-          command: docker push oclettings/p13_orange_county_app:$CIRCLE_BRANCH-$CIRCLE_SHA1
+          command: |
+            docker tag oclettings/p13_orange_county_app:$TAG 
+            docker tag oclettings/p13_orange_county_app:latest
+            docker push oclettings/p13_orange_county_app:$TAG
+            docker push oclettings/p13_orange_county_app:latest
 
   deploy-on-heroku:
     executor: heroku/default
@@ -51,7 +57,7 @@ jobs:
           command: HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
       - run:
           name: Build and push docker image to Heroku repository
-          command: HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a $HEROKU_APP_NAME:$CIRCLE_BRANCH-$CIRCLE_SHA1 web
+          command: HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a $HEROKU_APP_NAME web
       - run:
           name: Release new version of the app on Heroku
           command: HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a $HEROKU_APP_NAME web
