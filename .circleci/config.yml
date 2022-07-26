@@ -36,7 +36,9 @@ jobs:
           command: docker login -u $DOCKER_USERNAME -p $DOCKER_TOKEN
       - run:
           name: Push image to Docker Hub
-          command: docker push oclettings/p13_orange_county_app:$CIRCLE_BRANCH-$CIRCLE_SHA1
+          command: |
+          docker push oclettings/p13_orange_county_app:$CIRCLE_BRANCH-$CIRCLE_SHA1
+          docker push oclettings/p13_orange_county_app:latest
 
   deploy-on-heroku:
     executor: heroku/default
@@ -44,7 +46,7 @@ jobs:
       - checkout
       - heroku/install
       - setup_remote_docker:
-            version: 19.03.13
+            version: 20.10.11
             docker_layer_caching: true
       - run:
           name: Login to Heroku repository
