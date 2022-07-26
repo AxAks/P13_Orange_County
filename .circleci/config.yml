@@ -38,7 +38,6 @@ jobs:
           name: Push image to Docker Hub
           command: |
           docker push oclettings/p13_orange_county_app:$CIRCLE_BRANCH-$CIRCLE_SHA1
-          docker push oclettings/p13_orange_county_app:latest
 
   deploy-on-heroku:
     executor: heroku/default
