@@ -39,7 +39,7 @@ jobs:
             docker push oclettings/p13_orange_county_app:latest
 
   deploy-on-heroku:
-    executor: heroku/22
+    executor: heroku/default
     steps:
       - checkout
       - heroku/install
