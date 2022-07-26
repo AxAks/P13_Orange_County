@@ -11,4 +11,4 @@ RUN chown -R app:app /app/
 
 USER app
 EXPOSE 8000
-CMD python manage.py runserver 0.0.0.0:8000
+CMD gunicorn oc_lettings_site.wsgi --log-file - --log-level info
