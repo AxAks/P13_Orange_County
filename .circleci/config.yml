@@ -29,16 +29,11 @@ jobs:
       - setup_remote_docker:
           version: 20.10.11
       - run:
-          name: Create docker image
+          name: Create and Push image to Docker Hub
           command: |
             TAG=$CIRCLE_BRANCH-$CIRCLE_SHA1
+            docker login -u $DOCKER_USERNAME -p $DOCKER_TOKEN
             docker build . -t oclettings/p13_orange_county_app:$TAG
-      - run:
-          name: Log into Docker Hub
-          command: docker login -u $DOCKER_USERNAME -p $DOCKER_TOKEN
-      - run:
-          name: Push image to Docker Hub
-          command: |
             docker tag oclettings/p13_orange_county_app:$TAG oclettings/p13_orange_county_app:latest
             docker push oclettings/p13_orange_county_app:$TAG
             docker push oclettings/p13_orange_county_app:latest
