@@ -11,4 +11,5 @@ RUN chown -R app:app /app/
 
 USER app
 EXPOSE 8000
+RUN python manage.py collectstatic --noinput
 CMD gunicorn oc_lettings_site.wsgi --log-file - --log-level info
