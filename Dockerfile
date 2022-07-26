@@ -10,6 +10,6 @@ RUN pip3 install -r requirements.txt
 RUN chown -R app:app /app/
 
 USER app
-EXPOSE 8000
+EXPOSE 7000
 
 CMD gunicorn oc_lettings_site.wsgi --log-file - --log-level error
