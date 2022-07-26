@@ -12,4 +12,4 @@ RUN chown -R app:app /app/
 USER app
 EXPOSE 8000
 
-CMD gunicorn oc_lettings_site.wsgi --log-file - --log-level error --no-reload
+CMD gunicorn oc_lettings_site.wsgi --log-file - --log-level error --max-requests 1
