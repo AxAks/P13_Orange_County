@@ -12,5 +12,4 @@ RUN chown -R app:app /app/
 USER app
 EXPOSE $PORT
 
-RUN python manage.py collectstatic --noinput
 CMD gunicorn -b :$PORT oc_lettings_site.wsgi --log-file - --log-level error
