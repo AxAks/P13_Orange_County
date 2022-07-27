@@ -33,6 +33,7 @@ ___the `python` command refers to the interpreter mentioned above (unless a virt
    SECRET_KEY=MySecretKey
    DEBUG=True
    ALLOWED_HOSTS='*'
+   PORT=8000
    DB_NAME=oc-lettings-site.sqlite3
    SENTRY_DSN=https://74f290ff50b1436daf464e567f3de6cb@o1289316.ingest.sentry.io/6543858
    ` 
