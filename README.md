@@ -111,3 +111,8 @@ ___The following indications assume that you are in the docker container in a ba
 
 ------
 to be continued !!! 
+
+Local :
+docker pull oclettings/p13_orange_county_app:latest
+docker image ls
+docker run -p 8000:8000 --env-file .env  -d --name p13_orange_county_app [IMAGE ID]
