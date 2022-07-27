@@ -12,4 +12,4 @@ RUN chown -R app:app /app/
 USER app
 EXPOSE 8000
 
-CMD gunicorn -b 8000:8000 oc_lettings_site.wsgi --log-file - --log-level error
+CMD gunicorn oc_lettings_site.wsgi --log-file - --log-level error
