@@ -14,6 +14,7 @@
 - (Docker Desktop - not mandatory, only for convenience)
 - Sentry account with access rights on the project
 (https://sentry.io/organizations/cn-films/projects/orange-county-lettings-website/?project=6543858)
+- Heroku account with access rights on the project
 
 ### macOS / Linux
 
@@ -110,9 +111,38 @@ ___The following indications assume that you are in the docker container in a ba
 
 
 ------
-to be continued !!! 
+to be rewrote entirely !!! 
+
+#drafts
+Deployment:
 
 Local :
 docker pull oclettings/p13_orange_county_app:latest
 docker image ls
 docker run -p 8000:8000 --env-file .env  -d --name p13_orange_county_app [IMAGE ID]
+
+docker stop p13_orange_county_app
+docker rm p13_orange_county_app
+sudo docker image ls
+docker image rm [IMAGE ID]
+
+
+Production Heroku:
+
+CircleCI
+DockerHub
+Heroku
+
+Sentry
+
+----
+For developers (that will work on the project):
+- download the git project
+- cd P13_Orange_County
+- python3.9 -m virtualenv venv
+- pip install -r requirements.txt
+- create .env file with required variables
+- push to master = linting, tests, save to DockerHub, deploy to heroku
+- push to any other branch = linting, tests
+
+Download and run the Docker container (for verification purpose, pull and run container)
