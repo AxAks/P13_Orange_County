@@ -2,9 +2,7 @@
 
  Orange County Lettings Website
 
-## Local Development
-
-### Prerequisites
+## Prerequisites
 
 - GitHub account with read access to this repository
 - Git CLI
@@ -16,15 +14,23 @@
 (https://sentry.io/organizations/cn-films/projects/orange-county-lettings-website/?project=6543858)
 - Heroku account with access rights on the project
 
+## Development
+
 ### macOS / Linux
 
 ___The documentation for local development will assume that___
-___the `python` command refers to the interpreter mentioned above (unless a virtualenv is set).___
+___the `python` command refers to the interpreter mentioned above.___
 
 #### Clone the repository
 
 - `cd /path/to/put/project/in`
 - `git clone https://github.com/AxAks/P13_Orange_County.git`
+
+#### Create a virtualenv and install requirements
+
+At the project root:
+- python -m virtualenv venv
+- pip install -r requirements.txt
 
 #### Add the required environment variables
 
@@ -37,68 +43,62 @@ ___the `python` command refers to the interpreter mentioned above (unless a virt
    PORT=8000
    DB_NAME=oc-lettings-site.sqlite3
    SENTRY_DSN=https://74f290ff50b1436daf464e567f3de6cb@o1289316.ingest.sentry.io/6543858
-   ` 
+   `
 
-   $ `cd P13_Orange_County`
-   $ `touch .env`
-   $ `echo SECRET_KEY=YourSecretKey > .env`
-   $ `echo ALLOWED_HOSTS='*' >> .env`
-   $ `echo DB_NAME=oc-lettings-site.sqlite3 >> .env`
-   $ `echo DEBUG=True >> .env`
-   $ `echo SENTRY_DSN=https://74f290ff50b1436daf464e567f3de6cb@o1289316.ingest.sentry.io/6543858 >> .env`
-#### Launch the project in a docker container
+#### Launch the project (not in container)
+$ `python manage.py runserver`
 
-1. Make sure the docker daemon is up
-   $ `sudo systemctl status docker.service`
-   -> to stop daemon: $ `sudo systemctl stop docker.service`
-   -> to start daemon: $ `sudo systemctl start docker.service`
-   or Launch Docker Desktop
-2. 
+#### CI/CD (continuous integration/deployment)
+- pushes to master will trigger= linting checks, tests, build and save an image to DockerHub, deploy to heroku 
+- pushes to any other branch will only trigger:  linting checks and tests
+  (see .circleci/config.yml)
 
-3. Build the Docker Image:      
-   $ `docker build . -t [image_tagname]`
-4. Download a Docker Image:
-   $ `docker pull oclettings/p13_orange_county_app:[branch]-[circleci-commit]`
-5. List Docker Images 
-   $ `docker image ls`
-6. On first launch (the image first needs to be built)
-   $ `docker run -p 8000:8000 --env-file path/to/.env  -d --name p13_orange_county_app [image_name/ID]`
-7. Stop/Start Docker container:
-   $ `docker stop [container_name/ID]`
-   $ `docker start [container_name/ID]`
 
-   1. Visit `http://localhost:8000` in a web browser:                
-      -> the website should be displayed, and you should be able to see some profiles and locations
+## Local Deployment:
+#### Add the required environment variables
+1. Create a .env file at the project root:
+Example of .env file:
+   `
+   SECRET_KEY=MySecretKey
+   DEBUG=True
+   ALLOWED_HOSTS='*'
+   PORT=8000
+   DB_NAME=oc-lettings-site.sqlite3
+   SENTRY_DSN=https://74f290ff50b1436daf464e567f3de6cb@o1289316.ingest.sentry.io/6543858
+   `
+#### Download and launch the project (within container)
+2. one-line command:
+$ `docker run -p 8000:8000 --env-file .env  -d --name p13_orange_county_app 'oclettings/p13_orange_county_app:latest'`
 
-#### Interact with the docker container
+3. Visit `http://localhost:8000` in a web browser:                
+-> the website should be displayed, and you should be able to see some profiles and locations
 
-1. List all containers:     
-   $ `docker ps -a`
-3. Enter the docker Orange County container (via a bash terminal):     
-   $ `docker exec -ti [container_name/ID] /bin/bash`  (the container must be running)
-
-##### Checks
-
-___The following indications assume that you are in the docker container in a bash shell___
-
-#### Linting
-
-    $ `flake8`     
-
-#### Unittests
-
-    $ `pytest`
-
-#### Administration interface
-
-1. With the Docker container launched
-
+For admin interface:
 - Visit `http://localhost:8000/admin`
 - login with user `admin`, and password `Abc1234!`
 
+
+#### Interact with the docker container (when created locally):
+- stop container
+$ `docker stop p13_orange_county_app`
+- start container after it has been stopped
+$ `docker start p13_orange_county_app`
+- enter the container with bash
+$ `docker exec -ti p13_orange_county_app /bin/bash`  (the container must be running)
+- delete container (container must be stopped)
+$ `docker rm p13_orange_county_app`
+- delete image
+$ `docker image rm 'oclettings/p13_orange_county_app:latest'`
+or 
+$ `docker image ls`
+$ `docker image rm [IMAGE ID]`
+
+- list all containers:     
+$ `docker ps -a`
+
 #### Errors monitoring
 
-1. the monitoring is reachable at:
+1. the monitoring is reachable on Sentry at:
 
 - https://sentry.io/organizations/cn-films/projects/orange-county-lettings-website/?project=6543858    
   -> you will need to create an account and request access
@@ -106,43 +106,28 @@ ___The following indications assume that you are in the docker container in a ba
   -> The Issues tab lists all captured issues
 
 
+#### Manual Checks
+#### Linting
+from outside the docker container
+$ `docker exec -ti p13_orange_county_app flake8`
+from inside the docker container
+$ `flake8`     
+
+#### Unittests
+from outside the docker container
+$ `docker exec -ti p13_orange_county_app pytest`
+from inside the docker container
+$ `pytest`
 
 
-
-
-------
-to be rewrote entirely !!! 
-
+Mettre ## Deployment on Heroku: ici !
+(...)
 #drafts
-Deployment:
 
-Local :
-docker pull oclettings/p13_orange_county_app:latest
-docker image ls
-docker run -p 8000:8000 --env-file .env  -d --name p13_orange_county_app [IMAGE ID]
-
-docker stop p13_orange_county_app
-docker rm p13_orange_county_app
-sudo docker image ls
-docker image rm [IMAGE ID]
-
-
-Production Heroku:
+## Deployment on Heroku:
 
 CircleCI
 DockerHub
 Heroku
 
 Sentry
-
-----
-For developers (that will work on the project):
-- download the git project
-- cd P13_Orange_County
-- python3.9 -m virtualenv venv
-- pip install -r requirements.txt
-- create .env file with required variables
-- push to master = linting, tests, save to DockerHub, deploy to heroku
-- push to any other branch = linting, tests
-
-Download and run the Docker container (for verification purpose, pull and run container)
