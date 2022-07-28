@@ -8,9 +8,10 @@
 - Git CLI
 - SQLite3 CLI
 - Python interpreter, version 3.9+
-- Docker (v20.10+) and Docker Compose (https://docs.docker.com/get-docker/ or https://docs.docker.com/engine/install/)
+- Docker (v20.10+) and Docker Compose      
+(https://docs.docker.com/get-docker/ or https://docs.docker.com/engine/install/)
 - (Docker Desktop - not mandatory, only for convenience)
-- Sentry account with access rights on the project
+- Sentry account with access rights on the project     
 (https://sentry.io/organizations/cn-films/projects/orange-county-lettings-website/?project=6543858)
 - Heroku account with access rights on the project
 
@@ -35,15 +36,13 @@ At the project root:
 #### Add the required environment variables
 
 1. Create a .env file at the project root:
-2. Example of .env file:
-   `
-   SECRET_KEY=MySecretKey
-   DEBUG=True
-   ALLOWED_HOSTS='*'
-   PORT=8000
-   DB_NAME=oc-lettings-site.sqlite3
-   SENTRY_DSN=https://74f290ff50b1436daf464e567f3de6cb@o1289316.ingest.sentry.io/6543858
-   `
+2. Example of .env file:       
+   `SECRET_KEY=MySecretKey`         
+   `DEBUG=True`       
+   `ALLOWED_HOSTS='*'`          
+   `PORT=8000`   
+   `DB_NAME=oc-lettings-site.sqlite3`
+   `SENTRY_DSN=https://74f290ff50b1436daf464e567f3de6cb@o1289316.ingest.sentry.io/6543858`
 
 #### Launch the project (not in container)
 $ `python manage.py runserver`
@@ -79,26 +78,25 @@ For admin interface:
 
 
 #### Interact with the docker container (when created locally):
-- stop container
+- stop container   
 $ `docker stop p13_orange_county_app`
-- start container after it has been stopped
+- start container after it has been stopped   
 $ `docker start p13_orange_county_app`
-- enter the container with bash
-$ `docker exec -ti p13_orange_county_app /bin/bash`  (the container must be running)
-- delete container (container must be stopped)
-$ `docker rm p13_orange_county_app`
-- delete image
-$ `docker image rm 'oclettings/p13_orange_county_app:latest'`
-or 
-$ `docker image ls`
+- enter the container with bash (the container must be running)  
+$ `docker exec -ti p13_orange_county_app /bin/bash`   
+- delete container (container must be stopped)   
+$ `docker rm p13_orange_county_app`  
+- delete image   
+$ `docker image rm 'oclettings/p13_orange_county_app:latest'`   
+or    
+$ `docker image ls`     
 $ `docker image rm [IMAGE ID]`
-
 - list all containers:     
 $ `docker ps -a`
 
 #### Errors monitoring
 
-1. the monitoring is reachable on Sentry at:
+1. the monitoring is available on Sentry and reachable at:
 
 - https://sentry.io/organizations/cn-films/projects/orange-county-lettings-website/?project=6543858    
   -> you will need to create an account and request access
@@ -107,27 +105,28 @@ $ `docker ps -a`
 
 
 #### Manual Checks
-#### Linting
-from outside the docker container
-$ `docker exec -ti p13_orange_county_app flake8`
-from inside the docker container
+1. Linting   
+from outside the docker container     
+$ `docker exec -ti p13_orange_county_app flake8`    
+from inside the docker container   
 $ `flake8`     
 
-#### Unittests
-from outside the docker container
-$ `docker exec -ti p13_orange_county_app pytest`
-from inside the docker container
-$ `pytest`
+2. Unit tests    
+from outside the docker container     
+$ `docker exec -ti p13_orange_county_app pytest`     
+from inside the docker container      
+$ `pytest`    
 
+## Note on Heroku (for Production):
 
-Mettre ## Deployment on Heroku: ici !
-(...)
-#drafts
+Continuous Integration and Deployment is handled by circleCI:  
+- It verifies the code when it is pushed to GitHub.    
+-> The code is validated only if the linting and tests phases pass     
 
-## Deployment on Heroku:
+- If the push is made on branch Master  
+-> CircleCi builds and save an image to DockerHub      
+-> Once the image is on DockerHub, CircleCI deploys the app on Heroku     
 
-CircleCI
-DockerHub
-Heroku
+Once on Heroku, the application is available at:        
+https://p13-oc-lettings.herokuapp.com
 
-Sentry
