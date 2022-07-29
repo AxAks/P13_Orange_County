@@ -47,8 +47,11 @@ jobs:
             version: 20.10.11
             docker_layer_caching: true
       - run:
-          name: Login to Heroku repository
+          name: Login to Heroku repositoryHEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a $HEROKU_APP_NAME web
           command: HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
+      - run:
+          name: Create app on heroku if not exists
+          command: HEROKU_API_KEY=${HEROKU_API_KEY} heroku create $HEROKU_APP_NAME
       - run:
           name: Build and push docker image to Heroku repository
           command: HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a $HEROKU_APP_NAME web
