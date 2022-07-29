@@ -51,7 +51,7 @@ jobs:
           command: HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
       - run:
           name: Create app on heroku
-          command: HEROKU_API_KEY=${HEROKU_API_KEY} heroku create $HEROKU_APP_NAME
+          command: HEROKU_API_KEY=${HEROKU_API_KEY} heroku create $HEROKU_APP_NAME || true
       - run:
           name: Set environment variables
           command: |
