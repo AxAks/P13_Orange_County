@@ -50,8 +50,17 @@ jobs:
           name: Login to Heroku repositoryHEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a $HEROKU_APP_NAME web
           command: HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
       - run:
-          name: Create app on heroku if not exists
+          name: Create app on heroku
           command: HEROKU_API_KEY=${HEROKU_API_KEY} heroku create $HEROKU_APP_NAME
+      - run:
+          name: Set environment variables
+          command: |
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku config:set SECRET_KEY=$SECRET_KEY
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku config:set ALLOWED_HOSTS=$ALLOWED_HOSTS
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku config:set DB_NAME=$DB_NAME
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku config:set SENTRY_DSN=$SENTRY_DSN
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku config:set HEROKU_WEB_CONCURRENCY=$HEROKU_WEB_CONCURRENCY
+
       - run:
           name: Build and push docker image to Heroku repository
           command: HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a $HEROKU_APP_NAME web
