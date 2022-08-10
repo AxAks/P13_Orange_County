@@ -65,7 +65,7 @@ Example of .env file:
    `SENTRY_DSN=https://74f290ff50b1436daf464e567f3de6cb@o1289316.ingest.sentry.io/6543858`
 #### Download and launch the project (within container)
 2. one-line command:
-$ `docker run -p 8000:8000 --env-file .env  -d --name p13_orange_county_app 'oclettings/p13_orange_county_app:latest'`
+$ `docker run -p 8000:8000 --env-file .env -d --name p13_orange_county_app 'oclettings/p13_orange_county_app:latest'`
 
 3. Visit `http://localhost:8000` in a web browser:                
 -> the website should be displayed, and you should be able to see some profiles and locations
